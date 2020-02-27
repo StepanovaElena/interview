@@ -1,0 +1,198 @@
+<!--
+1. Что выведет alert(typeof NaN); ?
+ Выведет: number, тк NaN относится к «специальным числовым значениям»
+-->
+
+<!--
+ 2. Что выведет alert(NaN === NaN); ?
+Выведет: false, тк оно не является равным ни чему другому, даже самому себе
+-->
+
+<!--
+3. 0.1 + 0.2 == 0.3 ?
+Выведет: на самом деле являются бесконечной дробью в двоичной форме.
+-->
+
+<!--
+4. Какой тип будет иметь переменная a, если она создается при помощи следующего кода:
+   var a = "a,b".split(',');
+   Ответ: object, тк split - азбивает строку и возвращает массив. Массив это встроенный объект.
+-->
+
+<!--
+5. Сделать так, чтобы при нажатии на элемент <а> алертом выводилось «Hello world!».
+<a href="#" onclick="showAlert()">Click</a>
+<script>
+    function showAlert() {
+        event.preventDefault();
+        alert("Hello world!")
+    }
+</script>
+-->
+
+<!--
+6. Найти все элементы div с классом one, а также все элементы p с классом two.
+Затем добавить им всем класс three и визуально плавно спустить вниз.
+<button onclick="slowDown()"></button>
+<div class="one" style="background-color: aquamarine; width: 10px; height: 10px;"></div>
+<p class="two">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+<p class="two">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+<p class="two">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+<div class="one" style="background-color: aquamarine; width: 10px; height: 10px;"></div>
+<div class="one" style="background-color: aquamarine; width: 10px; height: 10px;"></div>
+
+<script>
+    function slowDown() {
+        const div = document.querySelectorAll("div.one");
+        const p = document.querySelectorAll('p.two');
+        [...div, ...p].forEach(elem => {
+            elem.classList.add('three');
+        });
+    }
+</script>
+<style>
+    .three {
+        margin-top: 800px;
+        transition: margin-top 1s ease-out 0.7s;
+    }
+</style>
+-->
+
+<!--
+7. Выбрать видимый div с именем red, который содержит тег span.
+
+<div name="red">
+    <span>Lorem ipsum dolor</span>
+</div>
+<div name="red"></div>
+
+<script>
+    document.querySelectorAll("div[name=red]").forEach(elem => {
+        if (elem.getElementsByTagName('span').length > 0 && !elem.hidden) {
+            console.log(elem);
+        }
+    });
+</script>
+-->
+
+<!--
+8. Привести пример замыкания.
+<script>
+    const user1 = {login: 'user1', password: '123456'};
+    const user2 = {login: 'user2', password: '123456'};
+
+    function showUserData() {
+        console.log(`User: ${this.login} : ${this.password}`)
+    }
+
+    function bindContext(context, fn) {
+        return function (...args) {
+            fn.apply(context, args)
+        }
+    }
+
+    bindContext(user1, showUserData)();
+    bindContext(user2, showUserData)();
+
+</script>
+-->
+
+
+<!--
+9. Написать функцию, которая уменьшает или увеличивает указанное время на заданное количество минут, например:
+changeTime('10:00', 1) //return '10:01'
+changeTime('10:00', -1) //return '09:59'
+changeTime('23:59', 1) //return '00:00'
+changeTime('00:00', -1) //return '23:59'
+
+<script>
+    function changeTime(timeString, minutes) {
+        let time = timeString.split(':');
+        const newMin = (+time[1] + minutes) % 60;
+        let date = new Date();
+        date.setHours(time[0]);
+        date.setMinutes(newMin);
+        return ('0' + date.getHours()).slice(-2)+':' + ('0'+ date.getMinutes()).slice(-2);
+    }
+    console.log(changeTime('10:00', 1));
+    console.log(changeTime('10:00', -1));
+    console.log(changeTime('23:59', 1));
+    console.log(changeTime('00:00', -1));
+</script>
+
+-->
+
+<!--
+10. Написать функцию, возвращающую градус, на который указывают часовая и минутная стрелки в зависимости от времени, например:
+clock_degree("00:00") returns : "360:360"
+clock_degree("01:01") returns : "30:6"
+clock_degree("00:01") returns : "360:6"
+clock_degree("01:00") returns : "30:360"
+clock_degree("01:30") returns : "30:180"
+clock_degree("24:00") returns : "Check your time !"
+clock_degree("13:60") returns : "Check your time !"
+clock_degree("20:34") returns : "240:204"
+
+<script>
+    function clock_degree(timeString) {
+        let time = timeString.split(':');
+        if(time[0] === '24') {
+            return 'Check your time !'
+        }
+        if(time[1] === '60') {
+            return 'Check your time !'
+        }
+        let mAngle, hAngle;
+        time[1] === '00' ? mAngle = 360 : mAngle = time[1] * 6;
+        time[0] === '00' ? hAngle = 360 : hAngle = time [0] % 12 * 30;
+        return hAngle +':' + mAngle;
+        }
+    console.log(clock_degree("00:00"));
+    console.log(clock_degree("01:01"));
+    console.log(clock_degree("00:01"));
+    console.log(clock_degree("01:00"));
+    console.log(clock_degree("01:30"));
+    console.log(clock_degree("20:34"));
+    console.log(clock_degree("24:00"));
+    console.log(clock_degree("13:60"));
+
+</script>
+-->
+
+<!--
+11. Написать простую игру «Угадай число». Программа загадывает случайное число от 0 до 100.
+Игрок должен вводить предположения и получать ответы «Больше», «Меньше» или «Число угадано».
+
+<h2>Enter number from 0 to 100: <input type="text" id="input"></h2>
+<button onclick="guess()">Guess</button>
+<hr>
+<p id="message"></p>
+<script>
+    hiddenNum = Math.floor((Math.random() * 100) + 1);
+
+    function guess() {
+        let userNum = +document.getElementById('input').value;
+        let message = document.getElementById('message');
+
+        if (isNaN(userNum)) {
+            message.innerHTML = 'Enter number!';
+            return;
+        }
+
+        if (userNum === hiddenNum) {
+            message.innerHTML = 'The number is correct!';
+            message.style.backgroundColor = "green";
+        } else {
+            if (userNum > hiddenNum) {
+                message.innerHTML = 'Need less!';
+            } else {
+                message.innerHTML = 'Need more!';
+            }
+        }
+    }
+</script>
+-->
+
+
+
+
