@@ -1,0 +1,244 @@
+<!--
+1. Что такое <ol>, <ul> и <li>?
+Маркированный список определят тег ul. Между открывающим и закрывающим тегами ul располагаются элементы списка,
+содержание каждого из которых должно быть в свою очередь располагаться между открывающим и закрывающим тегами li.
+Нумерованный список создается при помощи тега <ol>… </ol>.Внутри него располагаются теги <li>.
+
+2. Сверстать сложную таблицу с объединением строк и столбцов.
+<table>
+    <tr>
+        <td rowspan="3"></td>
+        <td colspan="3"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+3. В каком регистре лучше писать HTML-код?
+Регистр не влияет. HTML регистронезависимый.
+Общепринятой практикой является написание тегов маленькими буквами.
+И практически никогда не используется "смешанный" регистр, типа <Html>.
+
+4. Как убрать синюю рамку вокруг картинки-ссылки?
+добавьте свойство border со значением none к селектору IMG
+
+5. Обязательно ли писать alt в <img>?
+Атрибут alt устанавливает альтернативный текст для изображений. Является обязательным.
+
+6. Что такое html-entities?
+
+7. Как убрать подчеркивание для всех ссылок на странице?
+Чтобы ссылки не подчеркивались, для селектора A следует добавить свойство text-decoration со значением none.
+a {
+    text-decoration: none;
+}
+
+8. Что делает свойство clear?
+Устанавливает, с какой стороны элемента запрещено его обтекание другими элементами.
+Отменяет действие float с указанной стороны для вышестоящих элементов.
+
+9. Есть ячейка таблицы, в ней 3 дива, в каждом диве – по слову.
+На первый див применен стиль float: left; на третий – float: right.
+Что нужно применить на второй див, чтобы все три надписи/дивы были в одной горизонтальной строке,
+то есть первый имел бы выравнивание по левому краю, третий – по правому, а второй – по центру?
+
+<t:div style=”float:left; text-align: left;”>WORD </t:div>
+<t:div style=”float:left;”>WORD</t:div>
+<t:div style=”float:left; text-align: right;”>WORD </t:div>
+
+10. Перечислить по пять знакомых вам псевдоклассов и псевдостилей с указанием их функционала.
+Псевдоклассы – это то, что обычно пишут после селектора через двоеточие чтобы определить
+реакцию или состояние для данного селектора.
+:active – состояние активного объекта;
+:hover – состояние объекта при наведении на него мышкой;
+:focus – фокус на объекте;
+:first-child – первый дочерний элемент текущего элемента;
+:last-child – последний дочерний элемент;
+
+11. Нарисовать при помощи CSS3 дом на фоне неба и плывущие облака.
+<div class='clouds'>
+<div class='clouds-1'></div>
+<div class='clouds-2'></div>
+<div class='clouds-3'></div>
+
+-->
+
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Простое облако</title>
+    <link rel="stylesheet/less" type="text/css" href="cloud-func.less">
+    <link rel="stylesheet/less" type="text/css" href="cloud-style.less">
+    <script type="text/javascript" src="less.js"></script>
+</head>
+<body>
+
+<div class="picture">
+    <div class="clouds">
+        <div class="cloud one"></div>
+        <div class="cloud two"></div>
+        <div class="cloud three"></div>
+    </div>
+    <div class="clouds-two">
+        <div class="cloud one"></div>
+        <div class="cloud two"></div>
+        <div class="cloud three"></div>
+    </div>
+    <div class="house">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+
+<style>
+    body {
+        margin: 0;
+        background: white;
+    }
+    h1 {
+        font-family: 'Indie Flower', cursive;
+        text-align: center;
+        letter-spacing: 4px;
+        font-size: 35px;
+        color: #6D6D6D;
+    }
+    .picture {
+        width: 270px;
+        height: 270px;
+        background: #CFDEE6;
+        border-radius: 50%;
+        margin: 40px auto 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .house {
+        width: 110px;
+        height: 36px;
+        background: white;
+        position: absolute;
+        left: 75px;
+        bottom: 84px;
+    }
+    .house:before {
+        content: "";
+        width: 102px;
+        height: 0;
+        border-bottom: 30px solid #D56851;
+        border-right: 16px solid transparent;
+        border-left: 16px solid transparent;
+        position: absolute;
+        top: -30px;
+        left: -13px;
+    }
+    ul {
+        margin: 7px 0 0 20px;
+        padding: 0;
+        list-style: none;
+    }
+    li {
+        display: inline-block;
+        width: 12px;
+        height: 18px;
+        background: #6D6D6D;
+    }
+    li:nth-child(3) {
+        margin-right: 10px;
+        height: 29px;
+        position: absolute;
+        top: 7px;
+        left: 78px;
+    }
+    @keyframes clouds {
+        50% {
+            left: 270px;
+            opacity: 0.5;
+        }
+        51% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+            left: -110px;
+        }
+    }
+    .clouds {
+        width: 110px;
+        height: 40px;
+        position: relative;
+        overflow: hidden;
+        top: 60px;
+        left: -110px;
+        animation: clouds 20s linear infinite;
+    }
+    .clouds-two {
+        width: 110px;
+        height: 40px;
+        position: relative;
+        overflow: hidden;
+        top: 20px;
+        left: -110px;
+        animation: clouds 20s linear infinite 10s;
+    }
+    .cloud {
+        background: white;
+        position: absolute;
+    }
+    .one {
+        width: 30px;
+        height: 15px;
+        border-radius: 60px 60px 0 0;
+        top: 0;
+        left: 0;
+    }
+    .one:after {
+        content: "";
+        width: 20px;
+        height: 8px;
+        background: white;
+        border-radius: 40px 40px 0 0;
+        position: absolute;
+        left: 20px;
+        top: 7px;
+    }
+    .two {
+        width: 24px;
+        height: 10px;
+        border-radius: 48px 48px 0 0;
+        top: 30px;
+        left: 30px;
+    }
+    .three {
+        width: 30px;
+        height: 15px;
+        border-radius: 60px 60px 0 0;
+        top: 25px;
+        left: 80px;
+    }
+    .three:before {
+        content: "";
+        width: 20px;
+        height: 8px;
+        background: white;
+        border-radius: 40px 40px 0 0;
+        position: absolute;
+        left: -10px;
+        top: 7px;
+    }
+
+</style>
